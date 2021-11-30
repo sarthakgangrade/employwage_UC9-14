@@ -5,35 +5,42 @@ using System.Text;
 using System.Threading.Tasks;
 namespace employwage
 {
-    public class EmpWageBuilderObject
+    public class EmpWageBuilderArray
     {
         // Declare Constant
         public const int Full_Time = 1;
         public const int Part_Time = 2;
 
-        string company;
-        int Emp_rate_per_Hrs;
-        int Max_Working_Hrs;
-        int Max_Working_Days;
-        public int TotalempWage;
+        private int numofCompany = 0;
+        private CompanyEmpWage[] companyEmpWageArray;
 
-        //Create a Constructor
-        public EmpWageBuilderObject(string company, int Emp_rate_per_Hrs, int Max_Working_Hrs, int Max_Working_Days)
+        public EmpWageBuilderArray()
         {
-            this.company = company;
-            this.Emp_rate_per_Hrs = Emp_rate_per_Hrs;
-            this.Max_Working_Hrs = Max_Working_Hrs;
-            this.Max_Working_Days = Max_Working_Days;
+            this.companyEmpWageArray = new CompanyEmpWage[5];
         }
 
+        public void addCompanyEmpWage(string company, int Emp_rate_per_Hrs, int Max_Working_Hrs, int Max_Working_Days)
+        {
+            companyEmpWageArray[this.numofCompany] = new CompanyEmpWage(company, Emp_rate_per_Hrs, Max_Working_Hrs, Max_Working_Days);
+            numofCompany++;
+        }
+
+        public void computeEmpWage()
+        {
+            for (int i = 0; i < numofCompany; i++)
+            {
+                companyEmpWageArray[i].setTotalEmpWage(this.computeEmpWage(companyEmpWageArray[i]));
+                Console.WriteLine(this.companyEmpWageArray[i].tostring());
+            }
+        }
         // Create a Method
-        public void ComputeEmpWage()
+        private int computeEmpWage(CompanyEmpWage companyEmpWage)
         {
             // Variable declaration
             int No_of_Working_Days = 0;
             int empHrs = 0;
             int workingHrs = 0;
-            while (No_of_Working_Days < Max_Working_Days && workingHrs < Max_Working_Hrs)
+            while (No_of_Working_Days <= companyEmpWage.Max_Working_Days && workingHrs < companyEmpWage.Max_Working_Hrs)
             {
                 No_of_Working_Days++;
                 Random r = new Random();
@@ -56,14 +63,10 @@ namespace employwage
                 Console.ReadLine();
             }
             //Calculate Total Employee Wage
-            TotalempWage = empHrs * Emp_rate_per_Hrs;
-            Console.WriteLine("Total Emp Wage For Company: " + company + " is " + TotalempWage);
-            Console.ReadLine();
+            return empHrs * companyEmpWage.Emp_rate_per_Hrs;
+            
         }
-        public string toString()
-        {
-            return "Total Emp Wage For Company: " + this.company + " is " + this.TotalempWage;
-        }
+        
 
     }
 }
