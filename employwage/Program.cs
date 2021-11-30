@@ -10,13 +10,12 @@ namespace employwage
     {
         static void Main(string[] args)
         {
-            EmpWageBuilderObject dmart = new EmpWageBuilderObject("Dmart", 20, 50, 10);
-            EmpWageBuilderObject Amazon = new EmpWageBuilderObject("Amazon", 10, 60, 20);
-            dmart.ComputeEmpWage();
-            Console.WriteLine(dmart.ToString());
-            Amazon.ComputeEmpWage();
-            Console.WriteLine(Amazon.ToString());
-            //Console.ReadLine();
+            EmpWageBuilderArray empWageBuilder = new EmpWageBuilderArray();
+            empWageBuilder.addCompanyEmpWage("DMART", 20, 2, 10);
+            empWageBuilder.addCompanyEmpWage("RELIANCE", 10, 4, 2);
+            empWageBuilder.addCompanyEmpWage("none", 0, 1, 0);
+            empWageBuilder.computeEmpWage();
+
         }
     }
 }
